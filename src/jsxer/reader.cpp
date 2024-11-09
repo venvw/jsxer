@@ -8,7 +8,7 @@
 using namespace jsxer;
 #define perror(msg) printf("[!] " msg ", POS: %lu\n", this->_cursor)
 
-Reader::Reader(const string& jsxbin, bool unblind) {
+Reader::Reader(const string& jsxbin, bool unblind, bool includeJson2) {
     string _input = jsxbin;
 
     utils::string_strip_char(_input, ' ');
@@ -29,6 +29,7 @@ Reader::Reader(const string& jsxbin, bool unblind) {
     _error = ParseError::None;
     _version = JsxbinVersion::Invalid;
     _unblind = unblind;
+    _includeJson2 = includeJson2;
 }
 
 JsxbinVersion Reader::version() const {
@@ -45,6 +46,10 @@ size_t Reader::depth() const {
 
 bool Reader::should_unblind() const {
     return _unblind;
+}
+
+bool Reader::should_include_json2() const {
+    return _includeJson2;
 }
 
 void Reader::step(int offset) {
