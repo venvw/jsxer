@@ -269,12 +269,15 @@ bool valid_id_x(uint32_t value) {
     return valid_id_0(value) || is_numerical_digit(value);
 }
 
+inline
+bool not_keyword(const string& value) {
+    return value != "static" && value != "default";
+}
+
 // decoding utilities...
 bool jsxer::decoders::valid_id(const string& value) {
     // ^[a-zA-Z_$][0-9a-zA-Z_$]*$
-    size_t len = value.length();
-
-    if (len > 0) {
+    if (size_t len = value.length(); len > 0) {
         if (valid_id_0(value[0])) {
             for (int i = 1; i < len; ++i) {
                 if (!valid_id_x(value[i])) {
@@ -288,14 +291,18 @@ bool jsxer::decoders::valid_id(const string& value) {
         return false;
     }
 
-    return true;
+    return not_keyword(value);
+}
+
+inline
+bool not_keyword(const ByteString& value) {
+    // TODO: lame
+    return value != ByteString{'s', 't', 'a', 't', 'i', 'c'} && value != ByteString{'d', 'e', 'f', 'a', 'u', 'l', 't'};
 }
 
 bool jsxer::decoders::valid_id(const ByteString& value) {
     // ^[a-zA-Z_$][0-9a-zA-Z_$]*$
-    size_t len = value.size();
-
-    if (len > 0) {
+    if (size_t len = value.size(); len > 0) {
         if (valid_id_0(value[0])) {
             for (int i = 1; i < len; ++i) {
                 if (!valid_id_x(value[i])) {
@@ -309,7 +316,7 @@ bool jsxer::decoders::valid_id(const ByteString& value) {
         return false;
     }
 
-    return true;
+    return not_keyword(value);
 }
 
 bool jsxer::decoders::valid_xml_attribute(const ByteString& value) {
