@@ -221,6 +221,11 @@ add_test("ObjectExpression" jsxer-test-obj-expr)
 add_executable(jsxer-test-member-expr ${JSXER_TESTS_SRC_DIR}/member-expr.cpp)
 target_link_libraries(jsxer-test-member-expr PRIVATE ${JSXER_CORE_TARGET})
 
+add_test("TernaryExpression" jsxer-test-tern-expr)
+
+add_executable(jsxer-test-tern-expr ${JSXER_TESTS_SRC_DIR}/tern-expr.cpp)
+target_link_libraries(jsxer-test-tern-expr PRIVATE ${JSXER_CORE_TARGET})
+
 add_test("MemberExpression" jsxer-test-member-expr)
 
 add_executable(jsxer-test-for-stmt ${JSXER_TESTS_SRC_DIR}/for-stmt.cpp)
