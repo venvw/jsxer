@@ -21,6 +21,7 @@ int main(int argc, char* argv[]) {
 
     // cli flag variables
     bool unblind = false;
+    bool includeJson2 = false;
 //    bool verbose = false;
     std::string input;
     std::string output;
@@ -35,6 +36,7 @@ int main(int argc, char* argv[]) {
 //    cli.add_flag("-v,--verbose",
 //                   verbose,
 //                   "Display verbose log");
+    cli.add_option("-j,--json2", includeJson2, "Include Json2");
 
     cli.add_option("input",
                    input,
@@ -66,7 +68,7 @@ int main(int argc, char* argv[]) {
     // begin de-compilation...
     std::string decompiled;
     std::cout << "[i] Decompiling..." << std::endl;
-    jsxer::decompile(contents_str, decompiled, unblind);
+    jsxer::decompile(contents_str, decompiled, unblind, includeJson2);
     std::cout << "[i] Finished." << std::endl;
 
     utils::WriteFileContents(output_path, decompiled);

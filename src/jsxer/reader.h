@@ -69,12 +69,13 @@ using OpVariant = std::shared_ptr<Variant>;
 
 class Reader {
 public:
-    explicit Reader(const string& jsxbin, bool unblind);
+    explicit Reader(const string& jsxbin, bool unblind, bool includeJson2 = false);
 
     [[nodiscard]] JsxbinVersion version() const;
     [[nodiscard]] ParseError error() const;
     [[nodiscard]] size_t depth() const;
     [[nodiscard]] bool should_unblind() const;
+    [[nodiscard]] bool should_include_json2() const;
     bool verifySignature();
 
     Token get();
@@ -108,6 +109,7 @@ private:
     JsxbinVersion _version;
 
     bool _unblind;
+    bool _includeJson2;
     deob::DeobfuscationContext deobfuscationContext;
 
     map<Number, ByteString> _symbols;

@@ -36,8 +36,8 @@ void prepend_header(string& code, JsxbinVersion jsxbin_version, bool unblind) {
     code = header + code;
 }
 
-int jsxer::decompile(const string& input, string& output, bool unblind) {
-    auto reader = std::make_unique<Reader>(input, unblind);
+int jsxer::decompile(const string& input, string& output, bool unblind, bool includeJson2) {
+    auto reader = std::make_unique<Reader>(input, unblind, includeJson2);
 
     if (!reader->verifySignature()) {
         // TODO: Handle this properly
@@ -59,8 +59,8 @@ int jsxer::decompile(const string& input, string& output, bool unblind) {
 }
 
 // for testing
-int jsxer::decompile_test(const string& input, string& output, bool unblind) {
-    auto reader = std::make_unique<Reader>(input, unblind);
+int jsxer::decompile_test(const string& input, string& output, bool unblind, bool includeJson2) {
+    auto reader = std::make_unique<Reader>(input, unblind, includeJson2);
 
     if (!reader->verifySignature()) {
         // TODO: Handle this properly
