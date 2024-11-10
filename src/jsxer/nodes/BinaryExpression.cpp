@@ -17,7 +17,7 @@ namespace jsxer::nodes {
                                 && strcmp(op_name.c_str(), "+") == 0);
 
             parenthesis = !associative;
-        } else if (exprNode != nullptr && (exprNode->type() == NodeType::LocalAssignmentExpression || exprNode->type() == NodeType::AssignmentExpression)){
+        } else if (exprNode != nullptr && (exprNode->type() == NodeType::LocalAssignmentExpression || exprNode->type() == NodeType::AssignmentExpression || exprNode->type() == NodeType::TernaryExpression)) {
             parenthesis = true;
             expression = exprNode->to_string();
         } else {
